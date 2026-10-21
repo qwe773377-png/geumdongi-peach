@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ffe9d6">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="assets/icons/icon-192.png">
+  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="꿀복통">
+  <link rel="stylesheet" href="assets/fonts/jua/fonts.css">
+  <link rel="stylesheet" href="style.css">
+  <title>금동이네 꿀복통</title>
+</head>
+<body>
+  <aside class="bluetooth-panel" aria-label="장비 연결">
+    <button id="bluetooth-connect" type="button">블루투스 연결</button>
+    <span id="bluetooth-status" role="status">연결 확인 중</span>
+  </aside>
+  <!-- 메인 화면 -->
+  <main id="home" class="screen">
+    <header class="top">
+      <h1 id="title"></h1>
+      <img id="tagline" class="tagline" width="900" height="600" alt="">
+    </header>
+
+    <section id="products" class="products" aria-label="상품 선택"></section>
+
+    <footer class="bottom">
+      <button id="home-order" class="order" type="button"></button>
+      <small id="footer"></small>
+    </footer>
+  </main>
+
+  <!-- 상품 상세 화면 -->
+  <main id="detail" class="screen sub" hidden>
+    <div class="sub-top">
+      <button id="detail-back" class="back" type="button"></button>
+      <img id="detail-image" class="detail-image" alt="">
+      <section class="info">
+        <h2 id="detail-benefit-title" class="info-title"></h2>
+        <p id="detail-benefit" class="info-body"></p>
+      </section>
+      <section class="info">
+        <h2 id="detail-making" class="info-title"></h2>
+        <p id="detail-making-body" class="info-body"></p>
+      </section>
+    </div>
+    <footer class="bottom">
+      <button id="detail-order" class="order" type="button"></button>
+    </footer>
+  </main>
+
+  <!-- 주문 화면: 위 상품 버튼 3개, 가운데 장바구니 내역, 아래 장바구니 -->
+  <main id="order-screen" class="screen sub fixed" hidden>
+    <div class="sub-top scroll">
+      <button id="order-back" class="back" type="button"></button>
+      <section id="order-products" class="products"></section>
+      <section class="info">
+        <h2 id="order-summary-title" class="info-title"></h2>
+        <div class="info-body">
+          <ul id="order-summary" class="summary-list"></ul>
+          <p id="order-empty" class="empty"></p>
+          <div id="order-total-row" class="total-row">
+            <span id="order-total-label"></span>
+            <strong id="order-total"></strong>
+          </div>
+        </div>
+      </section>
+    </div>
+    <footer class="bottom">
+      <button id="order-cart-btn" class="order" type="button"></button>
+    </footer>
+  </main>
+
+  <!-- 장바구니 화면 -->
+  <main id="cart-screen" class="screen sub fixed" hidden>
+    <div class="sub-top scroll">
+      <button id="cart-back" class="back" type="button"></button>
+      <h2 id="cart-title" class="info-title"></h2>
+      <p id="cart-empty" class="info-body"></p>
+      <ul id="cart-list" class="cart-list"></ul>
+      <div id="cart-total-card" class="info-body total-card">
+        <span id="cart-total-label"></span>
+        <strong id="cart-total"></strong>
+      </div>
+      <button id="cart-clear" class="text-btn" type="button"></button>
+    </div>
+    <footer class="bottom">
+      <button id="cart-submit" class="order" type="button"></button>
+    </footer>
+  </main>
+
+  <div id="dialog" class="dialog" hidden>
+    <div class="dialog-box" role="dialog" aria-modal="true">
+      <p id="dialog-text"></p>
+      <div class="dialog-actions">
+        <button id="dialog-cancel" type="button"></button>
+        <button id="dialog-ok" type="button"></button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

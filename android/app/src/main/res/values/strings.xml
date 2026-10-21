@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">꿀복통</string>
+    <!-- 앱이 열어 보여 줄 웹앱 주소. 주소가 바뀌면 여기만 고치고 APK를 다시 만든다 -->
+    <string name="app_url">https://qwe773377-png.github.io/geumdongi-peach/</string>
+    <string name="offline_title">인터넷에 연결되어 있지 않아요</string>
+    <string name="offline_retry">다시 시도</string>
+</resources>

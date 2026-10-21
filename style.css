@@ -1,0 +1,228 @@
+:root {
+  --bg: #fff4ea;
+  --peach: #ff8a65;
+  --peach-dark: #e5694a;
+  --ink: #4a2c1d;
+  --card: #ffffff;
+  --radius: 16px;
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--ink);
+  /* 주아체. 버튼·대화상자는 font: inherit으로 같은 글씨체를 따른다 */
+  font-family: "Jua", system-ui, -apple-system, "Noto Sans KR", sans-serif;
+  font-synthesis: none; /* 주아체는 굵기가 하나라 억지로 굵게 만들지 않는다 */
+}
+
+/* 버튼은 기본적으로 자기 글씨체를 쓰므로, 모든 버튼이 본문 글씨체(주아체)를 따르게 한다 */
+button { font-family: inherit; }
+
+.screen {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 32px 16px calc(24px + env(safe-area-inset-bottom));
+}
+
+/* hidden 속성이 display:flex 같은 설정에 덮여 화면이 겹쳐 보이는 일을 막는다 */
+[hidden] { display: none !important; }
+
+.top { text-align: center; }
+.top h1 { margin: 0 0 12px; font-size: 2.4rem; line-height: 1.2; }
+.tagline { display: block; width: 100%; max-width: 420px; height: auto; margin: 0 auto; }
+
+.products {
+  display: flex;
+  gap: 8px;
+}
+
+.product {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  min-height: 96px;
+  padding: 12px 4px;
+  border: 3px solid transparent;
+  border-radius: var(--radius);
+  background: var(--card);
+  color: var(--ink);
+  font: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  cursor: pointer;
+}
+.product:active { transform: scale(0.96); background: #ffe3d6; }
+
+.product .kind { font-size: 1.9rem; font-weight: 800; line-height: 1.1; }
+.product .suffix { font-size: 0.75rem; white-space: nowrap; }
+/* 주문 화면에서 장바구니에 담긴 개수 */
+.product .badge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 6px;
+  border-radius: 12px;
+  background: var(--peach);
+  color: #fff;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bottom { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+
+.order {
+  width: 100%;
+  min-height: 56px;
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--peach);
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.order:active { background: var(--peach-dark); transform: scale(0.98); }
+
+.bottom small { font-size: 0.75rem; }
+
+
+/* 상세·주문·장바구니 화면 공통: 왼쪽 위 뒤로 버튼 + 위에서 아래로 쌓기 */
+.sub { padding-top: calc(16px + env(safe-area-inset-top)); }
+.sub-top { display: flex; flex-direction: column; gap: 20px; }
+/* 내용이 길어지면 가운데만 스크롤되고, 맨 아래 버튼은 화면에 고정 */
+.screen.fixed { height: 100dvh; min-height: 0; }
+.fixed .sub-top { flex: 1; min-height: 0; overflow-y: auto; padding-bottom: 12px; }
+
+/* 눈에 보이는 크기는 36px, 누르는 범위는 ::after로 사방 4px 넓혀 44px을 지킨다 */
+.back {
+  position: relative;
+  align-self: flex-start;
+  min-width: 36px;
+  min-height: 36px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--card);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.back::after { content: ""; position: absolute; inset: -4px; }
+.back:active { transform: scale(0.96); background: #ffe3d6; }
+
+.detail-image { display: block; width: 100%; max-width: 420px; height: auto; margin: 0 auto; }
+/* 제목 → 줄바꿈 → 설명 (효능과 만드는 과정이 같은 틀) */
+.info-title { margin: 0 0 10px; font-size: 1.45rem; font-weight: 800; }
+.info-body {
+  margin: 0;
+  padding: 14px 16px;
+  border-radius: var(--radius);
+  background: var(--card);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  word-break: keep-all;
+  text-wrap: pretty;
+}
+.info-body:empty { display: none; }
+
+/* 주문 화면의 장바구니 내역 */
+.summary-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.summary-list:empty { display: none; }
+.summary-list li, .total-row, .total-card { display: flex; justify-content: space-between; gap: 12px; }
+.summary-list li { align-items: center; }
+.summary-list li > span:first-child { flex: 1; min-width: 0; } /* 이름이 남는 폭을 차지해 −/+ 가 오른쪽에 붙는다 */
+.summary-list .stepper { gap: 8px; } /* 좁은 폰(320px)에서도 한 줄 */
+.total-row { margin-top: 10px; padding-top: 10px; border-top: 2px dashed #f1e3d8; }
+.empty { margin: 0; }
+
+/* 장바구니 화면 */
+.cart-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.cart-item {
+  padding: 14px 16px;
+  border-radius: var(--radius);
+  background: var(--card);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.cart-item-head, .cart-item-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.cart-name { font-size: 1.15rem; }
+.cart-unit { font-size: 0.95rem; }
+.stepper { display: flex; align-items: center; gap: 12px; }
+.qty { min-width: 28px; text-align: center; font-size: 1.25rem; }
+.cart-sub { font-size: 1.2rem; }
+.total-card { align-items: center; font-size: 1.25rem; }
+
+/* 눈에 보이는 크기는 36px, 누르는 범위는 ::after로 사방 4px 넓혀 44px을 지킨다 (뒤로 버튼과 같은 방식) */
+.mini, .text-btn {
+  position: relative;
+  min-width: 36px;
+  min-height: 36px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 10px;
+  color: var(--ink);
+  font: inherit;
+  font-size: 1.05rem;
+  cursor: pointer;
+}
+.mini { background: #f1e3d8; }
+.text-btn { align-self: center; background: transparent; text-decoration: underline; }
+.mini::after, .text-btn::after { content: ""; position: absolute; inset: -4px; }
+/* 눌림은 색으로만 표시한다. 크기를 줄이면 누르는 범위(44px)도 같이 줄어들기 때문 */
+.mini:active, .text-btn:active { background: #ffd2bd; }
+.mini:disabled { opacity: 0.4; cursor: default; }
+.mini:disabled:active { background: #f1e3d8; }
+
+.dialog {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.45);
+}
+.dialog-box {
+  width: 100%;
+  max-width: 340px;
+  padding: 24px 20px 16px;
+  border-radius: var(--radius);
+  background: var(--card);
+  text-align: center;
+}
+.dialog-box p { margin: 0 0 20px; font-size: 1.05rem; white-space: pre-line; } /* 줄바꿈(\n)을 그대로 보여준다 */
+
+.dialog-actions { display: flex; gap: 8px; }
+.dialog-actions button {
+  flex: 1;
+  min-height: 48px;
+  border: 0;
+  border-radius: 12px;
+  background: #f1e3d8;
+  color: var(--ink);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.dialog-actions button:active { transform: scale(0.96); }
+#dialog-ok { background: var(--peach); color: #fff; }
+/* Native Android Bluetooth SPP connection panel. */
+.bluetooth-panel { display:flex; align-items:center; gap:12px; flex-wrap:wrap; padding:10px 16px; background:#ffe9d6; color:#4a2c1d; }
+.bluetooth-panel button { padding:8px 12px; border:0; border-radius:10px; background:#ff8a65; color:#321b13; font:inherit; }
+.bluetooth-panel span { font-size:0.9rem; }
